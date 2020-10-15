@@ -1,0 +1,34 @@
+{
+  "name": "contentful-flexible-content",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "./node_modules/.bin/rollup -c",
+    "watch": "./node_modules/.bin/rollup -c -w",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@babel/cli": "^7.11.6",
+    "@babel/core": "^7.11.6",
+    "@babel/preset-env": "^7.11.5",
+    "@babel/preset-react": "^7.10.4",
+    "@rollup/plugin-alias": "^3.1.1",
+    "@rollup/plugin-babel": "^5.2.1",
+    "@rollup/plugin-node-resolve": "^9.0.0",
+    "path": "^0.12.7",
+    "rollup": "^2.29.0",
+    "rollup-plugin-svg": "^2.0.0"
+  },
+  "dependencies": {
+    "@kunukn/react-collapse": "^2.2.9",
+    "array-move": "^3.0.1",
+    "contentful-ui-extensions-sdk": "^3.23.2",
+    "react-fast-compare": "^3.2.0",
+    "react-sortable-hoc": "^1.11.0",
+    "slugify": "^1.4.5"
+  }
+}
