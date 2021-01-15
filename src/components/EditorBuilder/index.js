@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
+/** @jsxImportSource @emotion/react */
+import { jsx } from '@emotion/react';
 import isEqual from 'react-fast-compare';
 import { Button, Subheading } from '@contentful/forma-36-react-components';
-import { ContentConsumer } from 'contexts';
-import { DeleteButton } from 'components';
+import DeleteButton from '../DeleteButton/index';
+import { ContentConsumer } from '../../contexts/index';
 import { style } from './style';
 
 const MemoPreview = React.memo(({Preview, current}) => Preview
@@ -28,9 +30,9 @@ const EditorBuilder = ({current, element, index}) => {
   return (
     <ContentConsumer>
       {({sdk, deleteElement, openExtension, updateContent}) => <>
-        <div style={style.head}>
-          <Subheading style={style.element}>{label}</Subheading>
-          <div style={style.btnGroup}>
+        <div css={style.head}>
+          <Subheading css={style.element}>{label}</Subheading>
+          <div css={style.btnGroup}>
             {isExtension
               ? <Button
                   icon="Edit"
@@ -40,21 +42,21 @@ const EditorBuilder = ({current, element, index}) => {
                     data => data && updateContent(data, index),
                   )}
                   size="small"
-                  style={style.button}
+                  css={style.button}
                 />
               : isEditing
                 ? (Preview && current) && <Button
                     buttonType="muted"
+                    css={style.button}
                     icon="Close"
                     onClick={() => setEditing(false)}
                     size="small"
-                    style={style.button}
                   />
                 : <Button
+                    css={style.button}
                     icon="Edit"
                     onClick={() => setEditing(true)}
                     size="small"
-                    style={style.button}
                   />}
             <DeleteButton
               onClick={() => {
@@ -103,7 +105,7 @@ EditorBuilder.propTypes = {
   index: PropTypes.shape({
     column: PropTypes.number.isRequired,
     row: PropTypes.number.isRequired,
-    section: PropTypes.number.isRequired,
+    section: PropTypes.number,
   }).isRequired,
 };
 

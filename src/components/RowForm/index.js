@@ -1,12 +1,14 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
+/** @jsxImportSource @emotion/react */
+import { jsx } from '@emotion/react';
 import {
   Button,
   Form,
   Option,
   Select,
 } from '@contentful/forma-36-react-components';
-import { useConfig, ContentConsumer } from 'contexts';
+import { useConfig, ContentConsumer } from '../../contexts/index';
 import { style } from './style';
 
 const RowForm = ({
@@ -19,24 +21,24 @@ const RowForm = ({
     <ContentConsumer>
       {({addRow}) => (
         <Form
-          onSubmit={() => addRow(sectionIndex, columns)}
-          style={style.form}
+          css={style.form}
+          onSubmit={() => addRow({section: sectionIndex}, columns)}
         >
           <Select
+            css={style.select}
             name="columns"
             onChange={e => setColumns(e.currentTarget.value)}
-            style={style.select}
             value={columns}
             width="medium"
           >
             {columnsPerRow && columnsPerRow.map(n => (
-              <Option key={n} value={n}>{n} column{n > 1 ? 's' : ''}</Option>
+              <Option key={n} value={n.toString()}>{n} column{n > 1 ? 's' : ''}</Option>
             ))}
           </Select>
           <Button
             buttonType="positive"
+            css={style.button}
             icon="EmbeddedEntryBlock"
-            style={style.button}
             type="submit"
           >
             Create new row
@@ -48,7 +50,7 @@ const RowForm = ({
 };
 
 RowForm.propTypes = {
-  sectionIndex: PropTypes.number.isRequired,
+  sectionIndex: PropTypes.number,
 };
 
 export default RowForm;

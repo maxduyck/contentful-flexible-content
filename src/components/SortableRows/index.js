@@ -2,10 +2,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { SortableContainer, SortableElement } from 'react-sortable-hoc';
-import { ContentConsumer } from 'contexts';
-import { DragHandle, Row } from 'components';
+import DragHandle from '../DragHandle/index';
+import Row from '../Row/index';
+import { ContentConsumer, useConfig } from '../../contexts/index';
 
 const SortableRows = ({sectionIndex}) => {
+  const { hasSections } = useConfig();
+
   const shouldMemo = (prev, next) => {
     if (next.list.length !== prev.list.length) {
       return false;
@@ -51,7 +54,7 @@ const SortableRows = ({sectionIndex}) => {
     <ContentConsumer>
       {({content, sortRows}) => (
         <MemoizedList
-          list={content[sectionIndex].rows}
+          list={hasSections ? content[sectionIndex].rows : content}
           sortRows={sortRows}
         />
       )}
@@ -60,7 +63,7 @@ const SortableRows = ({sectionIndex}) => {
 };
 
 SortableRows.propTypes = {
-  sectionIndex: PropTypes.number.isRequired,
+  sectionIndex: PropTypes.number,
 };
 
 export default SortableRows;

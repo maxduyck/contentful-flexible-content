@@ -10,7 +10,7 @@ import arrayMove from 'array-move';
 const ContentContext = createContext(null);
 const useContent = () => useContext(ContentContext);
 
-const ContentProvider = ({sdk, children}) => {
+const ContentProvider = ({sdk, hasSections, children}) => {
 
   if (!sdk.location.is(locations.LOCATION_ENTRY_FIELD)) {
     return null;
@@ -34,12 +34,16 @@ const ContentProvider = ({sdk, children}) => {
 
       addElement: (elementKey, {section, row, column}) => {
         const newContent = content;
-        newContent[section].rows[row].columns[column].element = elementKey;
+        if (hasSections) {
+          newContent[section].rows[row].columns[column].element = elementKey;
+        } else {
+          newContent[row].columns[column].element = elementKey;
+        }
         sdk.field.setValue(newContent);
       },
 
-      addRow: (index, columnsCount) => {
-        const newContent = content;
+      addRow: ({section}, columnsCount) => {
+        let newContent = content;
         const newRow = {
           columns: [],
           contentfulTabOpen: true,
@@ -50,10 +54,17 @@ const ContentProvider = ({sdk, children}) => {
             value: null,
           };
         }
-        content[index].rows = [
-          ...content[index].rows,
-          newRow,
-        ];
+        if (hasSections) {
+          newContent[section].rows = [
+            ...content[section].rows,
+            newRow,
+          ];
+        } else {
+          newContent = [
+            ...content,
+            newRow,
+          ];
+        }
         sdk.field.setValue(newContent);
       },
 
@@ -70,28 +81,30 @@ const ContentProvider = ({sdk, children}) => {
 
       deleteElement: ({section, row, column}) => {
         const newContent = content;
-        newContent[section].rows[row].columns[column].element = null;
-        newContent[section].rows[row].columns[column].value = null;
+        if (hasSections) {
+          newContent[section].rows[row].columns[column].element = null;
+          newContent[section].rows[row].columns[column].value = null;
+        } else {
+          newContent[row].columns[column].element = null;
+          newContent[row].columns[column].value = null;
+        }
         sdk.field.setValue(newContent);
       },
 
       deleteRow: ({section, row}) => {
-        const sectionRows = content[section].rows;
-        const newRows = sectionRows.filter((item, i) => i !== row);
+        const rows = hasSections ? content[section].rows : content;
+        const newRows = rows.filter((item, i) => i !== row);
         const newContent = content;
-        newContent[section].rows = newRows;
+        if (hasSections) {
+          newContent[section].rows = newRows;
+        } else {
+          newContent = newRows;
+        }
         sdk.field.setValue(newContent);
       },
 
       deleteSection: index => {
         const newContent = content.filter((item, i) => i !== index);
-        sdk.field.setValue(newContent);
-      },
-
-      invertColumns: ({section, row}) => {
-        const newColumns = arrayMove(content[section].rows[row].columns, 0, 1);
-        const newContent = content;
-        newContent[section].rows[row].columns = newColumns;
         sdk.field.setValue(newContent);
       },
 
@@ -107,18 +120,26 @@ const ContentProvider = ({sdk, children}) => {
         }).then(callback)
       },
 
-      sortColumns: (oldIndex, newIndex, index) => {
-        const { section, row } = index;
-        const rowColumns = content[section].rows[row].columns;
+      sortColumns: (oldIndex, newIndex, {section, row}) => {
+        const rowColumns = hasSections
+          ? content[section].rows[row].columns
+          : content[row].columns;
         const newContent = content;
-        newContent[section].rows[row].columns = arrayMove(rowColumns, oldIndex, newIndex);
+        if (hasSections) {
+          newContent[section].rows[row].columns = arrayMove(rowColumns, oldIndex, newIndex);
+        } else {
+          newContent[row].columns = arrayMove(rowColumns, oldIndex, newIndex);
+        }
         sdk.field.setValue(newContent);
       },
 
       sortRows: (oldIndex, newIndex, section) => {
-        const sectionRows = content[section].rows;
         const newContent = content;
-        newContent[section].rows = arrayMove(sectionRows, oldIndex, newIndex);
+        if (hasSections) {
+          newContent[section].rows = arrayMove(content[section].rows, oldIndex, newIndex);
+        } else {
+          newContent = arrayMove(content, oldIndex, newIndex);
+        }
         sdk.field.setValue(newContent);
       },
 
@@ -129,13 +150,21 @@ const ContentProvider = ({sdk, children}) => {
 
       toggleColumn: ({section, row, column}, state) => {
         const newContent = content;
-        newContent[section].rows[row].columns[column].contentfulTabOpen = state;
+        if (hasSections) {
+          newContent[section].rows[row].columns[column].contentfulTabOpen = state;
+        } else {
+          newContent[row].columns[column].contentfulTabOpen = state;
+        }
         sdk.field.setValue(newContent);
       },
 
       toggleRow: ({section, row}, state) => {
         const newContent = content;
-        newContent[section].rows[row].contentfulTabOpen = state;
+        if (hasSections) {
+          newContent[section].rows[row].contentfulTabOpen = state;
+        } else {
+          newContent[row].contentfulTabOpen = state;
+        }
         sdk.field.setValue(newContent);
       },
 
@@ -147,7 +176,11 @@ const ContentProvider = ({sdk, children}) => {
 
       updateContent: (value, {section, row, column}) => {
         const newContent = content;
-        newContent[section].rows[row].columns[column].value = value;
+        if (hasSections) {
+          newContent[section].rows[row].columns[column].value = value;
+        } else {
+          newContent[row].columns[column].value = value;
+        }
         sdk.field.setValue(newContent);
       },
 

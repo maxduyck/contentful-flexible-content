@@ -1,13 +1,14 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+/** @jsxImportSource @emotion/react */
+import { jsx } from '@emotion/react';
 import {
   Icon,
   Paragraph,
   Subheading,
 } from '@contentful/forma-36-react-components';
-import { DeleteButton } from 'components';
-import { useConfig } from 'contexts';
-// import { elements } from '../ContentEditors/index';
+import DeleteButton from '../DeleteButton/index';
+import { useConfig } from '../../contexts/index';
 import { style } from './style';
 
 const Head = React.memo(({
@@ -35,23 +36,23 @@ const Head = React.memo(({
 
   return (
     <div
-      style={style.head}
+      css={style.head}
       onClick={() => toggleRow(index, !isOpen)}
     >
       {dragHandleComponent}
       <Icon
         color="secondary"
-        icon="ArrowDown"
-        style={{
+        css={{
           ...style.arrow,
           transform: `rotate(${isOpen ? '0' : '-90deg'})`,
         }}
+        icon="ArrowDown"
       />
-      <div style={style.headText}>
-        <Subheading style={style.title}>
+      <div css={style.headText}>
+        <Subheading css={style.title}>
           {rowElements.join(' | ')}
         </Subheading>
-        <Paragraph style={style.elements}>
+        <Paragraph css={style.elements}>
           {columns.length} column{columns.length > 1 && 's'}
         </Paragraph>
       </div>
@@ -80,7 +81,7 @@ Head.propTypes = {
   deleteRow: PropTypes.func.isRequired,
   index: PropTypes.shape({
     row: PropTypes.number.isRequired,
-    section: PropTypes.number.isRequired,
+    section: PropTypes.number,
   }).isRequired,
   isOpen: PropTypes.bool.isRequired,
   sdk: PropTypes.object.isRequired,

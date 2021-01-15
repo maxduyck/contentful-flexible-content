@@ -1,5 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+/** @jsxImportSource @emotion/react */
+import { jsx } from '@emotion/react';
 import { Button } from '@contentful/forma-36-react-components';
 import bin from './bin.svg';
 
@@ -20,10 +22,10 @@ const DeleteButton = ({onClick, size, style}) => {
   return (
     <Button
       buttonType="negative"
+      css={{...baseStyle.button, ...style}}
       onClick={onClick}
-      style={{...baseStyle.button, ...style}}
     >
-      <span style={baseStyle.icon}></span>
+      <span css={baseStyle.icon}></span>
     </Button>
   );
 };

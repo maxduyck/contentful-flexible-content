@@ -1,7 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+/** @jsxImportSource @emotion/react */
+import { jsx } from '@emotion/react';
 import Collapse from '@kunukn/react-collapse';
-import { RowForm, SortableRows } from 'components';
+import RowForm from '../RowForm/index';
+import SortableRows from '../SortableRows/index';
 import { style } from './style';
 
 const Body = React.memo(({
@@ -12,7 +15,7 @@ const Body = React.memo(({
     isOpen={isOpen}
     transition="height 0.2s cubic-bezier(.4, 0, .2, 1)"
   >
-    <div style={style.body}>
+    <div css={style.body}>
       <SortableRows sectionIndex={index} />
       <RowForm sectionIndex={index} />
     </div>

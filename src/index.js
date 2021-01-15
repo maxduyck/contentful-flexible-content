@@ -1,13 +1,17 @@
 import React, { useEffect } from 'react';
 import '@contentful/forma-36-react-components/dist/styles.css';
-import { SectionForm, SortableSections } from 'components';
-import { ConfigProvider, ContentProvider } from 'contexts';
+import RowForm from './components/RowForm/index';
+import SectionForm from './components/SectionForm/index';
+import SortableRows from './components/SortableRows/index';
+import SortableSections from './components/SortableSections/index';
+import { ConfigProvider, ContentProvider } from './contexts/index';
 // import './index.css';
 
 const ContentfulFlexibleContent = ({
-  columnsPerRow,
+  columnsPerRow = [ 2 ],
   elements,
   sdk,
+  hasSections = false,
 }) => {
   useEffect(() => {
     sdk.window.startAutoResizer();
@@ -15,12 +19,22 @@ const ContentfulFlexibleContent = ({
 
   return (
     <ConfigProvider
-    columnsPerRow={columnsPerRow}
+      columnsPerRow={columnsPerRow}
       elements={elements}
     >
-      <ContentProvider sdk={sdk}>
-        <SortableSections />
-        <SectionForm />
+      <ContentProvider
+        sdk={sdk}
+        hasSections={hasSections}
+      >
+        {hasSections
+          ? <>
+              <SortableSections />
+              <SectionForm />
+            </>
+          : <>
+              <SortableRows />
+              <RowForm />
+            </>}
       </ContentProvider>
     </ConfigProvider>
   );

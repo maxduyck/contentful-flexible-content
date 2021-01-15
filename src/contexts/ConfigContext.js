@@ -1,7 +1,4 @@
-import React, {
-  createContext,
-  useContext,
-} from 'react';
+import React, { createContext, useContext } from 'react';
 
 const ConfigContext = createContext(null);
 const useConfig = () => useContext(ConfigContext);
@@ -12,7 +9,7 @@ const ConfigProvider = ({
   elements,
 }) => {
   const columnsPerRowLimited = columnsPerRow.filter(item => item <= 6);
-  
+
   return (
     <ConfigContext.Provider value={{
       columnsPerRow: [...new Set(columnsPerRowLimited)],

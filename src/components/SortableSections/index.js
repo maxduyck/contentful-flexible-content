@@ -1,7 +1,8 @@
 import React from 'react';
 import { SortableContainer, SortableElement } from 'react-sortable-hoc';
-import { ContentConsumer } from 'contexts';
-import { DragHandle, Section } from 'components';
+import DragHandle from '../DragHandle/index';
+import Section from '../Section/index';
+import { ContentConsumer } from '../../contexts/index';
 
 const SortableSections = () => {
   const shouldMemo = (prev, next) => {
