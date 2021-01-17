@@ -9,7 +9,26 @@
     [
       "@babel/preset-react",
       {
-        "useBuiltIns": true
+        "useBuiltIns": true,
+        "runtime": "automatic",
+        "importSource": "@emotion/react"
+      }
+    ]
+  ],
+  "plugins": [
+    [
+      "@babel/plugin-transform-runtime",
+      {
+        "corejs": false,
+        "helpers": false,
+        "regenerator": true
+      }
+    ],
+    [
+      "@emotion/babel-plugin",
+      {
+        "sourceMap": true,
+        "cssPropOptimization": true
       }
     ]
   ]

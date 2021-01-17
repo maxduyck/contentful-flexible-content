@@ -4,8 +4,8 @@ import PropTypes from 'prop-types';
 import { jsx } from '@emotion/react';
 import isEqual from 'react-fast-compare';
 import { Button, Subheading } from '@contentful/forma-36-react-components';
-import DeleteButton from '../DeleteButton/index';
 import { ContentConsumer } from '../../contexts/index';
+import DeleteButton from '../DeleteButton/index';
 import { style } from './style';
 
 const MemoPreview = React.memo(({Preview, current}) => Preview

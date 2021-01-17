@@ -2,9 +2,9 @@ import React from 'react';
 import PropTypes from 'prop-types';
 /** @jsxImportSource @emotion/react */
 import { jsx } from '@emotion/react';
+import { ContentConsumer, useConfig } from '../../contexts/index';
 import Body from './Body';
 import Head from './Head';
-import { ContentConsumer, useConfig } from '../../contexts/index';
 import { style } from './style';
 
 const Row = ({

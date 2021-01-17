@@ -2,9 +2,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { SortableContainer, SortableElement } from 'react-sortable-hoc';
+import { ContentConsumer, useConfig } from '../../contexts/index';
 import DragHandle from '../DragHandle/index';
 import Row from '../Row/index';
-import { ContentConsumer, useConfig } from '../../contexts/index';
 
 const SortableRows = ({sectionIndex}) => {
   const { hasSections } = useConfig();

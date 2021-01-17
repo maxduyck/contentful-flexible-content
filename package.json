@@ -2,7 +2,7 @@
   "name": "contentful-flexible-content",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "dist/index.js",
   "scripts": {
     "start": "./node_modules/.bin/rollup -c",
     "watch": "./node_modules/.bin/rollup -c --sourcemapFile -w",
@@ -14,11 +14,13 @@
   "devDependencies": {
     "@babel/cli": "^7.11.6",
     "@babel/core": "^7.11.6",
+    "@babel/plugin-transform-runtime": "^7.12.10",
     "@babel/preset-env": "^7.11.5",
     "@babel/preset-react": "^7.10.4",
+    "@emotion/babel-plugin": "^11.1.2",
+    "@emotion/react": "^11.1.4",
     "@rollup/plugin-alias": "^3.1.1",
     "@rollup/plugin-babel": "^5.2.1",
-    "path": "^0.12.7",
     "rollup": "^2.29.0",
     "rollup-plugin-svg": "^2.0.0"
   },
