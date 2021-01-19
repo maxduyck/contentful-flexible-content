@@ -8,7 +8,7 @@ import {
   Subheading,
 } from '@contentful/forma-36-react-components';
 import DeleteButton from '../DeleteButton/index';
-import { useConfig } from '../../contexts/index';
+import { useConfig } from '../../contexts/ConfigContext';
 import { style } from './style';
 
 const Head = React.memo(({

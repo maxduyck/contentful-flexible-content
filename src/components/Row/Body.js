@@ -5,7 +5,7 @@ import { jsx } from '@emotion/react';
 import Collapse from '@kunukn/react-collapse';
 import Column from '../Column/index';
 import SortableColumns from '../SortableColumns/index';
-import { useConfig } from '../../contexts/index';
+import { useConfig } from '../../contexts/ConfigContext';
 import { style } from './style';
 
 const Body = React.memo(({

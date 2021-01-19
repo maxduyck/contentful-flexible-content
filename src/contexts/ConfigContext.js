@@ -22,10 +22,7 @@ const ConfigProvider = ({
   );
 };
 
-const ConfigConsumer = ConfigContext.Consumer;
-
 export {
-  ConfigConsumer,
   ConfigProvider,
   useConfig,
 };

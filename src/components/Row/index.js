@@ -2,7 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 /** @jsxImportSource @emotion/react */
 import { jsx } from '@emotion/react';
-import { ContentConsumer, useConfig } from '../../contexts/index';
+import { useConfig } from '../../contexts/ConfigContext';
+import { ContentConsumer } from '../../contexts/ContentContext';
 import Body from './Body';
 import Head from './Head';
 import { style } from './style';

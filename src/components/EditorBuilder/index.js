@@ -4,15 +4,9 @@ import PropTypes from 'prop-types';
 import { jsx } from '@emotion/react';
 import isEqual from 'react-fast-compare';
 import { Button, Subheading } from '@contentful/forma-36-react-components';
-import { ContentConsumer } from '../../contexts/index';
+import { ContentConsumer } from '../../contexts/ContentContext';
 import DeleteButton from '../DeleteButton/index';
 import { style } from './style';
-
-const MemoPreview = React.memo(({Preview, current}) => Preview
-  ? <Preview current={current} />
-  : null,
-  isEqual,
-);
 
 const EditorBuilder = ({current, element, index}) => {
   const {
@@ -26,6 +20,22 @@ const EditorBuilder = ({current, element, index}) => {
   useEffect(() => {
     setEditing(!current || !Preview)
   }, [current, element, index]);
+
+  const MemoEditor = React.memo(({index, current, showPreview}) => (
+    <Editor
+      index={index}
+      current={current}
+      showPreview={showPreview}
+      updateContent={updateContent}
+      save={save}
+    />
+  ), isEqual);
+
+  const MemoPreview = React.memo(({Preview, current}) => Preview
+    ? <Preview current={current} />
+    : null,
+    isEqual,
+  );
 
   return (
     <ContentConsumer>
@@ -75,7 +85,7 @@ const EditorBuilder = ({current, element, index}) => {
           </div>
         </div>
         {(!isExtension && isEditing)
-          ? <Editor
+          ? <MemoEditor
               index={index}
               current={current}
               showPreview={() => setEditing(false)}
@@ -93,7 +103,11 @@ const EditorBuilder = ({current, element, index}) => {
 };
 
 EditorBuilder.propTypes = {
-  current: PropTypes.object,
+  current: PropTypes.oneOfType([
+    PropTypes.array,
+    PropTypes.object,
+    PropTypes.string,
+  ]),
   element: PropTypes.shape({
     Editor: PropTypes.oneOfType([
       PropTypes.func,

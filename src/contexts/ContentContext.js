@@ -1,15 +1,13 @@
 import React, {
   createContext,
-  useContext,
   useEffect,
   useState,
 } from 'react';
 import arrayMove from 'array-move';
-import { useConfig } from './index';
+import { useConfig } from './ConfigContext';
 import InitError from '../components/initError/index';
 
 const ContentContext = createContext(null);
-const useContent = () => useContext(ContentContext);
 
 const ContentProvider = ({sdk, children}) => {
   const { columnsPerRow, hasSections } = useConfig();
@@ -164,7 +162,7 @@ const ContentProvider = ({sdk, children}) => {
       },
 
       sortRows: (oldIndex, newIndex, section) => {
-        const newContent = value.content;
+        let newContent = value.content;
         if (hasSections) {
           newContent[section].rows = arrayMove(content[section].rows, oldIndex, newIndex);
         } else {
@@ -233,5 +231,4 @@ const ContentConsumer = ContentContext.Consumer;
 export {
   ContentConsumer,
   ContentProvider,
-  useContent,
 };

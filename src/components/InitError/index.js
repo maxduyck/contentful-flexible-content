@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 /** @jsxImportSource @emotion/react */
 import { jsx } from '@emotion/react';
 import { Note, Paragraph, TextLink } from '@contentful/forma-36-react-components';
-import { useConfig } from '../../contexts/index';
+import { useConfig } from '../../contexts/ConfigContext';
 import { style } from './style';
 
 const InitError = ({reset}) => {

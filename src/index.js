@@ -5,7 +5,8 @@ import RowForm from './components/RowForm/index';
 import SectionForm from './components/SectionForm/index';
 import SortableRows from './components/SortableRows/index';
 import SortableSections from './components/SortableSections/index';
-import { ConfigProvider, ContentProvider } from './contexts/index';
+import { ConfigProvider } from './contexts/ConfigContext';
+import { ContentProvider } from './contexts/ContentContext';
 // import './index.css';
 
 const ContentfulFlexibleContent = ({

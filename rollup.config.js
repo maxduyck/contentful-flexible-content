@@ -14,6 +14,12 @@ export default {
     'prop-types',
     '@contentful/forma-36-react-components',
     '@contentful/forma-36-react-components/dist/styles.css',
+    '@kunukn/react-collapse',
+    'array-move',
+    'contentful-ui-extensions-sdk',
+    'react-fast-compare',
+    'react-sortable-hoc',
+    'slugify',
   ],
   plugins: [
     // alias({

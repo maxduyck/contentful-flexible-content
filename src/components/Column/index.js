@@ -6,7 +6,8 @@ import { SectionHeading } from '@contentful/forma-36-react-components';
 // import { ColumnForm } from 'components';
 import ColumnForm from '../ColumnForm/index';
 import EditorBuilder from '../EditorBuilder/index';
-import { ContentConsumer, useConfig } from '../../contexts/index';
+import { useConfig } from '../../contexts/ConfigContext';
+import { ContentConsumer } from '../../contexts/ContentContext';
 // import { elements } from '../ContentEditors/index';
 import { style } from './style';
 

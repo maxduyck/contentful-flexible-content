@@ -9,7 +9,7 @@ import {
   TextInput,
 } from '@contentful/forma-36-react-components';
 import slugify from 'slugify';
-import { ContentConsumer } from '../../contexts/index';
+import { ContentConsumer } from '../../contexts/ContentContext';
 import { style } from './style';
 
 const SectionForm = ({
