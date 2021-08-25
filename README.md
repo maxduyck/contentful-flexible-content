@@ -5,8 +5,9 @@ React field component to use in Contentful UI extensions or Contentful apps.
 ## Installation
 
 ```shell
-npm install --save @mdk/contentful-flexible-content
+yet to come
 ```
+[//]: <> (npm install --save @mdk/contentful-flexible-content)
 
 ## Usability
 
