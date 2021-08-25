@@ -32,7 +32,7 @@ const SortableRows = ({sectionIndex}) => {
   
   const RowsList = SortableContainer(({items}) => (
     <div>
-      {items.map((row, index) => (
+      {items && items.map((row, index) => (
         <SortableRow
           key={index}
           index={index}

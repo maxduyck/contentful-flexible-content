@@ -45,7 +45,7 @@ const ColumnForm = ({columnCount, index}) => {
               value={element}
               width="medium"
             >
-              {elements.map(element => ((!('columnLimit' in element)
+              {elements && elements.map(element => ((!('columnLimit' in element)
               || element.columnLimit.includes(columnCount))
               && (!('contentTypes' in element)
               || element.contentTypes.includes(contentTypeId))) && (

@@ -32,7 +32,7 @@ const SortableColumns = ({index}) => {
   
   const ColumnsList = SortableContainer(({items}) => (
     <div>
-      {items.map((row, index) => (
+      {items && items.map((row, index) => (
         <SortableColumn
           key={index}
           index={index}

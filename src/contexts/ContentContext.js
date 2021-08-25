@@ -19,7 +19,7 @@ const ContentProvider = ({sdk, children}) => {
   const [ready, setReady] = useState(false);
 
   const init = async () => {
-    const current = sdk.field.getValue();
+    const current = sdk.field.getValue() || {};
     if (!current.config) {
       await sdk.field.setValue({ ...current, config: { columnsPerRow, hasSections }});
       return setReady(true);
