@@ -1,26 +1,44 @@
 import React, { useEffect } from 'react';
+import { locations } from 'contentful-ui-extensions-sdk';
 import '@contentful/forma-36-react-components/dist/styles.css';
-import { SectionForm, SortableSections } from 'components';
-import { ConfigProvider, ContentProvider } from 'contexts';
+import RowForm from './components/RowForm/index';
+import SectionForm from './components/SectionForm/index';
+import SortableRows from './components/SortableRows/index';
+import SortableSections from './components/SortableSections/index';
+import { ConfigProvider } from './contexts/ConfigContext';
+import { ContentProvider } from './contexts/ContentContext';
 // import './index.css';
 
 const ContentfulFlexibleContent = ({
-  columnsPerRow,
+  columnsPerRow = [ 2 ],
   elements,
   sdk,
+  hasSections = false,
 }) => {
+  if (!sdk.location.is(locations.LOCATION_ENTRY_FIELD)) {
+    return null;
+  }
+
   useEffect(() => {
     sdk.window.startAutoResizer();
   }, []);
 
   return (
     <ConfigProvider
-    columnsPerRow={columnsPerRow}
+      columnsPerRow={columnsPerRow}
       elements={elements}
+      hasSections={hasSections}
     >
       <ContentProvider sdk={sdk}>
-        <SortableSections />
-        <SectionForm />
+        {hasSections
+          ? <>
+              <SortableSections />
+              <SectionForm />
+            </>
+          : <>
+              <SortableRows />
+              <RowForm />
+            </>}
       </ContentProvider>
     </ConfigProvider>
   );

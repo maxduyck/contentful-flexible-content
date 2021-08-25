@@ -1,16 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
+/** @jsxImportSource @emotion/react */
+import { jsx } from '@emotion/react';
 import isEqual from 'react-fast-compare';
 import { Button, Subheading } from '@contentful/forma-36-react-components';
-import { ContentConsumer } from 'contexts';
-import { DeleteButton } from 'components';
+import { ContentConsumer } from '../../contexts/ContentContext';
+import DeleteButton from '../DeleteButton/index';
 import { style } from './style';
-
-const MemoPreview = React.memo(({Preview, current}) => Preview
-  ? <Preview current={current} />
-  : null,
-  isEqual,
-);
 
 const EditorBuilder = ({current, element, index}) => {
   const {
@@ -25,12 +21,28 @@ const EditorBuilder = ({current, element, index}) => {
     setEditing(!current || !Preview)
   }, [current, element, index]);
 
+  const MemoEditor = React.memo(({index, current, showPreview}) => (
+    <Editor
+      index={index}
+      current={current}
+      showPreview={showPreview}
+      updateContent={updateContent}
+      save={save}
+    />
+  ), isEqual);
+
+  const MemoPreview = React.memo(({Preview, current}) => Preview
+    ? <Preview current={current} />
+    : null,
+    isEqual,
+  );
+
   return (
     <ContentConsumer>
       {({sdk, deleteElement, openExtension, updateContent}) => <>
-        <div style={style.head}>
-          <Subheading style={style.element}>{label}</Subheading>
-          <div style={style.btnGroup}>
+        <div css={style.head}>
+          <Subheading css={style.element}>{label}</Subheading>
+          <div css={style.btnGroup}>
             {isExtension
               ? <Button
                   icon="Edit"
@@ -40,21 +52,21 @@ const EditorBuilder = ({current, element, index}) => {
                     data => data && updateContent(data, index),
                   )}
                   size="small"
-                  style={style.button}
+                  css={style.button}
                 />
               : isEditing
                 ? (Preview && current) && <Button
                     buttonType="muted"
+                    css={style.button}
                     icon="Close"
                     onClick={() => setEditing(false)}
                     size="small"
-                    style={style.button}
                   />
                 : <Button
+                    css={style.button}
                     icon="Edit"
                     onClick={() => setEditing(true)}
                     size="small"
-                    style={style.button}
                   />}
             <DeleteButton
               onClick={() => {
@@ -73,7 +85,7 @@ const EditorBuilder = ({current, element, index}) => {
           </div>
         </div>
         {(!isExtension && isEditing)
-          ? <Editor
+          ? <MemoEditor
               index={index}
               current={current}
               showPreview={() => setEditing(false)}
@@ -91,7 +103,11 @@ const EditorBuilder = ({current, element, index}) => {
 };
 
 EditorBuilder.propTypes = {
-  current: PropTypes.object,
+  current: PropTypes.oneOfType([
+    PropTypes.array,
+    PropTypes.object,
+    PropTypes.string,
+  ]),
   element: PropTypes.shape({
     Editor: PropTypes.oneOfType([
       PropTypes.func,
@@ -103,7 +119,7 @@ EditorBuilder.propTypes = {
   index: PropTypes.shape({
     column: PropTypes.number.isRequired,
     row: PropTypes.number.isRequired,
-    section: PropTypes.number.isRequired,
+    section: PropTypes.number,
   }).isRequired,
 };
 

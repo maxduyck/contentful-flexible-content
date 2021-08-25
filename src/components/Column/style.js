@@ -10,7 +10,7 @@ export const style = {
   },
   headline: {
     // display: 'inline-block',
-    margin: '10px 0 10px 40px',
+    margin: '6px 0 6px 40px',
     // position: 'relative',
   }
 };

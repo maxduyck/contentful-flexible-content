@@ -1,12 +1,15 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
+/** @jsxImportSource @emotion/react */
+import { jsx } from '@emotion/react';
 import {
   Button,
   Form,
   Option,
   Select,
 } from '@contentful/forma-36-react-components';
-import { useConfig, ContentConsumer } from 'contexts';
+import { useConfig } from '../../contexts/ConfigContext';
+import { ContentConsumer } from '../../contexts/ContentContext';
 // import { elements } from '../ContentEditors/index';
 import { style } from './style';
 
@@ -32,17 +35,17 @@ const ColumnForm = ({columnCount, index}) => {
 
         return (
           <Form
+            css={style.form}
             onSubmit={() => handleSubmit(element, index)}
-            style={style.form}
           >
             <Select
+              css={style.select}
               name="elements"
               onChange={e => setElement(e.currentTarget.value)}
-              style={style.select}
               value={element}
               width="medium"
             >
-              {elements.map(element => ((!('columnLimit' in element)
+              {elements && elements.map(element => ((!('columnLimit' in element)
               || element.columnLimit.includes(columnCount))
               && (!('contentTypes' in element)
               || element.contentTypes.includes(contentTypeId))) && (
@@ -56,9 +59,9 @@ const ColumnForm = ({columnCount, index}) => {
             </Select>
             <Button
               buttonType="positive"
+              css={style.submit}
               icon="ChevronRight"
               onClick={e => e.stopPropagation()}
-              style={style.submit}
               type="submit"
             />
           </Form>
@@ -73,7 +76,7 @@ ColumnForm.propTypes = {
   index: PropTypes.shape({
     column: PropTypes.number.isRequired,
     row: PropTypes.number.isRequired,
-    section: PropTypes.number.isRequired,
+    section: PropTypes.number,
   }).isRequired,
 };
 

@@ -1,6 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { ContentConsumer } from 'contexts';
+/** @jsxImportSource @emotion/react */
+import { jsx } from '@emotion/react';
+import { ContentConsumer } from '../../contexts/ContentContext';
 import Body from './Body';
 import Head from './Head';
 import { style } from './style';
@@ -23,7 +25,7 @@ const Section = ({
       }
 
       return (
-        <div style={style.section}>
+        <div css={style.section}>
           <Head
             anchor={section.anchor}
             deleteSection={deleteSection}

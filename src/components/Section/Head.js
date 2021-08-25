@@ -1,7 +1,10 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
+/** @jsxImportSource @emotion/react */
+import { jsx } from '@emotion/react';
 import { Button, Heading, Icon, Paragraph } from '@contentful/forma-36-react-components';
-import { DeleteButton, SectionForm } from 'components';
+import DeleteButton from '../DeleteButton/index';
+import SectionForm from '../SectionForm/index';
 import { style } from './style';
 
 const Head = React.memo(({
@@ -24,32 +27,32 @@ const Head = React.memo(({
 
   return (
     <div
-      style={style.head}
+      css={style.head}
       onClick={() => toggleSection(index, !isOpen)}
     >
       {dragHandleComponent}
       <Icon
         color="secondary"
-        icon="ArrowDown"
-        style={{
+        css={{
           ...style.arrow,
           transform: `rotate(${isOpen ? '0' : '-90deg'})`,
         }}
+        icon="ArrowDown"
       />
       {!isEdit
         ? <>
-          <div style={style.headText}>
-            <Heading style={style.title}>{title}</Heading>
-            <Paragraph style={style.anchor}>#{anchor}</Paragraph>
+          <div css={style.headText}>
+            <Heading css={style.title}>{title}</Heading>
+            <Paragraph css={style.anchor}>#{anchor}</Paragraph>
           </div>
           <Button
             icon="Edit"
-            type="submit"
+            css={style.button}
             onClick={e => {
               e.stopPropagation();
               setEdit(true);
             }}
-            style={style.button}
+            type="submit"
           />
           </>
         : <SectionForm

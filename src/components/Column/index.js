@@ -1,29 +1,40 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+/** @jsxImportSource @emotion/react */
+import { jsx } from '@emotion/react';
 import { SectionHeading } from '@contentful/forma-36-react-components';
-import { ColumnForm } from 'components';
-import { EditorBuilder } from 'components';
-import { useConfig, ContentConsumer } from 'contexts';
+// import { ColumnForm } from 'components';
+import ColumnForm from '../ColumnForm/index';
+import EditorBuilder from '../EditorBuilder/index';
+import { useConfig } from '../../contexts/ConfigContext';
+import { ContentConsumer } from '../../contexts/ContentContext';
 // import { elements } from '../ContentEditors/index';
 import { style } from './style';
 
-const Column = ({dragHandleComponent, index}) => {
+const Column = ({
+  dragHandleComponent,
+  index,
+  singleColumn = false,
+}) => {
   const { section, row, column } = index;
-  const { elements } = useConfig();
+  const { elements, hasSections } = useConfig();
 
   return (
-    <div style={style.column}>
-      <div style={style.head}>
-        {dragHandleComponent}
-        <SectionHeading style={style.headline}>
-          Column {column + 1}
-        </SectionHeading>
-      </div>
+    <div css={style.column}>
+      {!singleColumn && (
+        <div css={style.head}>
+          {dragHandleComponent}
+          <SectionHeading css={style.headline}>
+            Column {column + 1}
+          </SectionHeading>
+        </div>
+      )}
       <ContentConsumer>
         {({content}) => {
-          const current = content[section].rows[row].columns[column].value;
-          const columnCount = content[section].rows[row].columns.length;
-          const elementKey = content[section].rows[row].columns[column].element;
+          const root = hasSections ? content[section].rows : content;
+          const current = root[row].columns[column].value;
+          const columnCount = root[row].columns.length;
+          const elementKey = root[row].columns[column].element;
           const element = (elementKey !== null)
             && elements.find(item => item.key === elementKey);
 
@@ -44,7 +55,7 @@ Column.propTypes = {
   index: PropTypes.shape({
     column: PropTypes.number.isRequired,
     row: PropTypes.number.isRequired,
-    section: PropTypes.number.isRequired,
+    section: PropTypes.number,
   }).isRequired,
 };
 

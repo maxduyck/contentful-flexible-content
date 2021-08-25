@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
+/** @jsxImportSource @emotion/react */
+import { jsx } from '@emotion/react';
 import {
   Button,
   Form,
@@ -7,7 +9,7 @@ import {
   TextInput,
 } from '@contentful/forma-36-react-components';
 import slugify from 'slugify';
-import { ContentConsumer } from 'contexts';
+import { ContentConsumer } from '../../contexts/ContentContext';
 import { style } from './style';
 
 const SectionForm = ({
@@ -74,37 +76,37 @@ const SectionForm = ({
 
         return (
           <Form
+            css={style.form}
             onSubmit={() => handleSubmit(
               title,
               anchor,
               index,
               isEdit ? updateSection : addSection,
             )}
-            style={style.form}
           >
             <TextInput
-              id={isEdit ? '' : titleFieldId}
+              css={isEdit ? style.editInput : style.input}
               error={titleError}
+              id={isEdit ? '' : titleFieldId}
               onBlur={() => suggestAnchor(title, anchor)}
               onChange={e => setTitle(e.currentTarget.value)}
               onClick={e => e.stopPropagation()}
               placeholder="Section title"
-              style={isEdit ? style.editInput : style.input}
               value={title}
             />
             <TextInput
+              css={isEdit ? style.editInput : style.input}
               error={anchorError}
               onChange={e => setAnchor(e.currentTarget.value)}
               onClick={e => e.stopPropagation()}
               placeholder="Anchor"
-              style={isEdit ? style.editInput : style.input}
               value={anchor}
             />
             <Button
               buttonType="positive"
+              css={isEdit ? style.editSubmit : {}}
               icon={isEdit ? 'CheckCircle' : 'Plus'}
               onClick={e => e.stopPropagation()}
-              style={isEdit ? style.editSubmit : {}}
               type="submit"
             >
               {isEdit ? 'Save' : 'Add section'}
